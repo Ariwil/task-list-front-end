@@ -7,14 +7,25 @@ const Task = (props) => {
   // const [complete, setComplete] = useState(props.isComplete);
 
   const updateComplete = props.updateComplete;
+  const updateIncomplete = props.updateIncomplete;
   const taskId = props.id;
   const deleteTask = props.deleteTask;
+  const completeStatus = props.isComplete;
+
+  const toggleComplete = (taskId) => {
+    if (completeStatus === true) {
+      updateComplete(taskId);
+    } else {
+      updateIncomplete(taskId);
+    }
+  };
+
   const buttonClass = props.isComplete ? 'tasks__item__toggle--completed' : '';
   return (
     <li className="tasks__item">
       <button
         className={`${buttonClass} tasks__item__toggle `}
-        onClick={() => updateComplete(taskId)}
+        onClick={() => toggleComplete(taskId)}
       >
         {props.title}
       </button>
@@ -33,6 +44,7 @@ Task.propTypes = {
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
   updateComplete: PropTypes.func.isRequired,
+  updateIncomplete: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
 };
 

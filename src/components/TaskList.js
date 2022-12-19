@@ -13,6 +13,7 @@ const TaskList = (props) => {
           title={task.title}
           isComplete={task.isComplete}
           updateComplete={props.updateComplete} //idk if this works
+          updateIncomplete={props.updateIncomplete}
           deleteTask={props.deleteTask}
         />
       );
@@ -32,6 +33,7 @@ TaskList.propTypes = {
     })
   ),
   updateComplete: PropTypes.func.isRequired,
+  updateIncomplete: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
 };
 

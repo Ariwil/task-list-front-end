@@ -28,7 +28,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .tasks__item__toggle--completed {
-  /* text-decoration: line-through; */
+  text-decoration: line-through; 
   background-color: rgba(44, 192, 44, 0.892);
   border-color: rgba(0, 128, 0, 0.2);
 }
