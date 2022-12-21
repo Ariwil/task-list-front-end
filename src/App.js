@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskList from './components/TaskList.js';
+import NewTaskForm from './components/NewTaskForm.js';
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -31,7 +32,11 @@ const App = () => {
         //console.log(res);
         const tasksAPIResCopy = res.data.map((task) => {
           return {
-            ...task,
+            // ...task,
+            description: task.description,
+            id: task.id,
+            isComplete: task.is_complete,
+            title: task.title,
           };
         });
         setTaskLists(tasksAPIResCopy);
@@ -105,6 +110,27 @@ const App = () => {
       });
   };
 
+  const addTask = (newTaskInfo) => {
+    axios
+      .post(URL, newTaskInfo)
+      .then((response) => {
+        // console.log(response);
+        //fetchAllBikes();  //<- This helper function will make a .get() call to fetch all bikes and update the state variable to display them
+        const newTasks = [...taskLists];
+        const newTaskJSON = {
+          ...newTaskInfo,
+          id: response.data.task.id,
+          key: response.data.task.id,
+        };
+        // console.log(response.data.task.id);
+        newTasks.push(newTaskJSON);
+        setTaskLists(newTasks); //this method does not require a .get request; we are pushing the bike data to the bikes list and using the setter to trigger a rerender.
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -120,6 +146,7 @@ const App = () => {
               deleteTask={deleteTask}
             />
           }
+          <NewTaskForm tasks={taskLists} addTaskCallbackFunc={addTask} />
         </div>
       </main>
     </div>

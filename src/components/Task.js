@@ -13,7 +13,7 @@ const Task = (props) => {
   const completeStatus = props.isComplete;
 
   const toggleComplete = (taskId) => {
-    if (completeStatus === true) {
+    if (completeStatus === false) {
       updateComplete(taskId);
     } else {
       updateIncomplete(taskId);
